@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "djaxei"
-version = "1.2.0"
+version = "1.2.1"
 description = "A django admin extension for importing exporting records from/to xls/ods"
 authors = ["Giovanni Bronzini <g.bronzini@gmail.com>"]
 license = "MIT"
@@ -61,7 +61,8 @@ tox = "*"
 
 [build-system]
 requires = [
-    "setuptools >= 35.0.2",
-    "setuptools_scm >= 2.0.0, <3"
+    "setuptools>=61",
+    "setuptools_scm[toml]>=6.2"
 ]
+
 build-backend = "setuptools.build_meta"
