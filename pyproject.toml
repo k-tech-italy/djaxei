@@ -1,8 +1,18 @@
-[tool.poetry]
+[build-system]
+build-backend = "hatchling.build"
+requires = [
+  "hatch-vcs>=0.4",
+  "hatchling>=1.25",
+]
+
+
+[project]
 name = "djaxei"
-version = "1.2.1"
+version = "1.2.2"
 description = "A django admin extension for importing exporting records from/to xls/ods"
-authors = ["Giovanni Bronzini <g.bronzini@gmail.com>"]
+authors = [
+    {"name" = "Giovanni Bronzini", "email" = "g.bronzini@gmail.com"}
+]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/GigiusB/djaxei.git"
@@ -12,57 +22,44 @@ packages = [
     { include = "djaxei", from = "src" },
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.8.7,<4"
-django = ">=3.2,<5"
-#openpyxl = { version = "<4", optional = true }
-#xlwt = {version = ">=1.2.0", optional = true}
-#xlsxwriter = {version = ">=1.2.8", optional = true}
-openpyxl = ">=3.0.0"
-
-#[tool.poetry.dev-dependencies]
-#pytest = "^6.2.5"
-#tox = "^3.24.4"
-#pytest-django = "^4.5.2"
-#factory-boy = "^3.2.1"
-#pytest-pythonpath = "^0.7.3"
-#flake8 = "^4.0.1"
-#isort = "^5.10.1"
-#django-webtest = "^1.9.8"
-#pytest-env = "^0.6.2"
-#pytest-coverage = "^0.0"
-#pytest-echo = "^1.7.1"
-
-#[tool.poetry.extras]
-#openpyxl = ["openpyxl"]
-#xlsxwriter = ["xlsxwriter"]
-#xlwt = ["xlwt"]
-
-#requires = ["poetry>=1.1"]
-#build-backend = "poetry.masonry.api"
-
-#[tool.poetry.group.dev.dependencies]
-#openpyxl = "^3.1.0"
-#xlsxwriter = "^3.0.7"
-pytz = "^2024.1"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "*"
-pytest-django = "*"
-flake8 = "*"
-isort = "*"
-bumpversion = "*"
-factory-boy = "*"
-pytest-env = "*"
-pytest-coverage = "*"
-pytest-echo = "*"
-tox = "*"
-
-
-[build-system]
-requires = [
-    "setuptools>=61",
-    "setuptools_scm[toml]>=6.2"
+[dependencies]
+dependencies = [
+    "python=>=3.8.7,<4",
+    "django=>=3.2,<5",
+    "openpyxl=>=3.0.0"
 ]
 
-build-backend = "setuptools.build_meta"
+pytz = "^2024.1"
+
+[dependency-groups]
+dev = [
+  "pytest",
+  "pytest-django",
+  "flake8",
+  "isort",
+  "bumpversion",
+  "factory-boy",
+  "pytest-env",
+  "pytest-coverage",
+  "pytest-echo",
+  "tox"
+]
+
+[tool.hatch]
+#build.hooks.vcs.version-file = "src/djaxei/version.py"
+#version.source = "vcs"
+raw-options = { root = ".." }
+artifacts = [
+    "*.mo",
+]
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
+[tool.hatch.build.targets.sdist]
+ignore-vcs = true
+only-include = [ "src/djaxei" ]
+
+[tool.hatch.build.targets.wheel]
+ignore-vcs = true
+packages = [ "src/djaxei" ]
